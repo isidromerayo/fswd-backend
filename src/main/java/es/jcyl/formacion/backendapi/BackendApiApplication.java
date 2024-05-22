@@ -43,10 +43,10 @@ public class BackendApiApplication {
 
             List<Usuario> admins =  usuarioRepo.listadoAdministradores();//usuarioRepo.findByRolesIs( admin );
             admins.forEach( usu -> {
-                System.out.println ("Administrador: " + usu.getNombreCompleto() );
+                System.out.println ("--> Administrador: " + usu.getNombreCompleto() );
             });
 
-            rolRepo.listadoUsuariosPorRol( "BASE").forEach( u -> { System.out.println ("Usuario base: " + u.getNombreCompleto() );});
+            rolRepo.listadoUsuariosPorRol( "BASE").forEach( u -> { System.out.println ("--> Usuario base: " + u.getNombreCompleto() );});
 
         };
     }
