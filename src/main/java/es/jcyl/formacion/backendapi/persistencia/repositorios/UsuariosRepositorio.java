@@ -12,16 +12,16 @@ public interface UsuariosRepositorio extends JpaRepository<Usuario,Integer> {
 
 
     /* buscar un usuario por el correo*/
-    Optional<Usuario> findUsuarioByCorreo(String correo);
+    Optional<Usuario> findByCorreo(String correo);
 
     /* Buscar ususario por correo y clave */
-    Optional<Usuario> findUsuarioByCorreoAndAndClave(String correo, String clave);
+    Optional<Usuario> findByCorreoAndAndClave(String correo, String clave);
 
     /* ver si un usuario con un correo existe */
-    Optional<Usuario> findUsuarioByCorreoIs(String correo);
+    Optional<Usuario> findByCorreoIs(String correo);
 
     /* ver si un usuario tiene un rol */
-    List<Usuario> findUsuarioByRolesIs(Rol role);
+    List<Usuario> findByRolesIs(Rol role);
 
     /* listado de los usuarios que tienen el rol de administrador */
     @Query("SELECT u FROM Usuario u JOIN u.roles r WHERE r.nombre='ADMINISTRADOR'")

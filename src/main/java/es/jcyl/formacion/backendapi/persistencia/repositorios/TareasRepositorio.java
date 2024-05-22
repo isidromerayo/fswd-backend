@@ -10,7 +10,7 @@ import java.util.List;
 public interface TareasRepositorio extends JpaRepository<Tarea,Integer> {
 
   /** lista las tareas que pertenecen a un usuario */
-  List<Tarea> findTareasByUsuario(Usuario usuario);
+  List<Tarea> findByUsuario(Usuario usuario);
 
   /** lista de tareas cuyo estado esta por encima del 90% */
   @Query("SELECT t FROM Tarea t WHERE t.estado > 90")
