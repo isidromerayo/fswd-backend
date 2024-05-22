@@ -33,9 +33,9 @@ public class TareaModelo {
     // TODO
     // TODO
     // TODO
-    @NotNull(message="el correo no debe ser nulo")
-    @NotEmpty(message="el correo no debe ser vacío")
     @Email(message="Debe indicar un correo electrónico correcto")
     @Size(max=100, message = "El tamaño máximo es de 100 caracteres")
+    @NotNull(message="Debe indicar un correo electrónico correcto")
+    @NotEmpty(message="Debe indicar un correo electrónico correcto")
     private String  usuarioCorreo;
 }
