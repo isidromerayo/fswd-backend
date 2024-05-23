@@ -41,6 +41,14 @@ public class BackendApiApplication {
                             .roles( Arrays.asList(base, admin ))
                             .build()
             );
+            usuarioRepo.save (
+                    Usuario.builder()
+                            .nombreCompleto("Usuario demo 2")
+                            .correo("pei@eclap.jcyl.es")
+                            .clave("CambiaLaClaveYa!")
+                            .roles( Arrays.asList(base, admin ))
+                            .build()
+            );
 
 
             // consultar

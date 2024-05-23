@@ -5,6 +5,7 @@ import es.jcyl.formacion.backendapi.servicios.TareaServicio;
 import es.jcyl.formacion.backendapi.modelos.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ public class TareaControlador {
     //inyectar el servicio: TareaServicio servicio;
     private final TareaServicio servicio;
 
-    @PostMapping(consumes = {} ,produces = {})
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE , produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TareaModelo>  nuevaTarea (
             @RequestBody TareaModelo modelo
             ) {
