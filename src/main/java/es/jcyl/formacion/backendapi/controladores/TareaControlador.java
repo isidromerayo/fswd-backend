@@ -11,27 +11,30 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping // TODO: poner el recuros tareas
+@RequestMapping("tareas") // poner el recuros tareas
 @RequiredArgsConstructor
 public class TareaControlador {
 
-    //TODO inyectar el servicio: TareaServicio servicio;
+    //inyectar el servicio: TareaServicio servicio;
+    private final TareaServicio servicio;
 
-
-    @PostMapping
+    @PostMapping(consumes = {} ,produces = {})
     public ResponseEntity<TareaModelo>  nuevaTarea (
-            // TODO: recoger del body un obejto valido TareaModelo modelo
+            @RequestBody TareaModelo modelo
             ) {
-        return ResponseEntity.ok(  // TODO : llamar al servicio para crear nueva tarea
-                 );
+        // recoger del body un obejto valido TareaModelo modelo
+        // llamar al servicio para crear nueva tarea
+        return ResponseEntity.ok(servicio.crearTarea(modelo));
+
     }
 
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<List<TareaModelo>> listadoTareas (
-            //TODO recoger el parametro correo: String correo
+            @RequestParam("correo") String correo
             ) {
-        return ResponseEntity.ok ( // TODO : llamar al servicio para recuperar datos
-                                    );
+        // recoger el parametro correo: String correo
+        // llamar al servicio para recuperar datos
+        return ResponseEntity.ok(servicio.obtenerTareas(correo));
     }
 
     @PutMapping()
