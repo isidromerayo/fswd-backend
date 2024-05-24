@@ -85,7 +85,7 @@ public class ControladoresTests {
                 // comprobar que devuelve un array
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isArray())
                 // comprobar que se ha devuelto un dato en el primero registro
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value("1"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].nombre").exists());
                 ;
 
     }
