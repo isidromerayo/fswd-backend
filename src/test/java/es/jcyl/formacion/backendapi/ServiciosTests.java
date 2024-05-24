@@ -11,6 +11,8 @@ import es.jcyl.formacion.backendapi.servicios.TareaServicioImpl;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Validation;
 import jakarta.validation.ValidatorFactory;
+import org.assertj.core.api.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -31,13 +33,16 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 public class ServiciosTests {
 
-    // TODO: inyectar
+    // inyectar
+    @Autowired
     private TareasRepositorio tareasRepo;
 
-    // TODO: inyectar
+    // inyectar
+    @Autowired
     private UsuariosRepositorio usuariosRepo;
 
-    // TODO: inyectar
+    // inyectar
+    @Autowired
     private TareaMapeo mapeo;
 
     private TareaServicio servicio;
@@ -71,6 +76,7 @@ public class ServiciosTests {
 
         // TODO: se crea la tarea
         // TODO: el correo corresponde al usuario
+        Assertions.assertEquals("fede.valverde@fmail.com",result.getCorreo());
 
         TareaModelo miTarea = TareaModelo.builder()
                 .nombre("Primera Tarea")
@@ -81,10 +87,14 @@ public class ServiciosTests {
 
         TareaModelo tareaResult = servicio.crearTarea( miTarea );
 
-        // TODO: se ha creado la tarea
-        //  TODO: tiene el mismo nombre que se ha asignado
-        // TODO: se le asignado un id
-        // TODO: pertenece al usuario
+        // se ha creado la tarea
+        Assertions.assertNotNull(tareaResult);
+        // tiene el mismo nombre que se ha asignado
+        Assertions.assertEquals(tareaResult.getNombre(),"Primera Tarea");
+        // se le asignado un id
+        Assertions.assertNotNull(tareaResult.getId());
+        // pertenece al usuario
+        Assertions.assertEquals(tareaResult.getUsuarioCorreo(),"fede.valverde@fmail.com");
 
     }
 
@@ -102,8 +112,10 @@ public class ServiciosTests {
 
         List<TareaModelo> listado = servicio.obtenerTareas("fede.valverde@fmail.com" );
 
-        // TODO: se obtine una lista
-        // TODO: la lista tiene un registro
+        // se obtine una lista
+        Assertions.assertFalse(listado.isEmpty());
+        // la lista tiene un registro
+        Assertions.assertTrue(listado.size()==1);
     }
 
     @Test
@@ -111,7 +123,9 @@ public class ServiciosTests {
     public void deberiaLanzarExcepcionUsuarioNoExiste() {
         String correo = "no.existe@fmail.com";
 
-        //TODO: lanza EntityNotFoundException.class cuando servicio.obtenerTareas( correo )
+        // lanza EntityNotFoundException.class cuando
+        Assertions.assertThrows(EntityNotFoundException.class, () -> servicio.obtenerTareas(correo));
+
     }
 
 
@@ -132,10 +146,14 @@ public class ServiciosTests {
 
         TareaModelo tareaModif = servicio.modificarTarea( tareaResult );
 
-        // TODO: la tarea existe
-        // TODO: conserva el mismo id
-        // TODO: conserva el mismo nombre
-        // TODO: se ha actualizado el campo
+        // la tarea existe
+        Assertions.assertNotNull(tareaResult);
+        // conserva el mismo id
+        Assertions.assertEquals(tareaResult.getId(),tareaModif.getId());
+        //conserva el mismo nombre
+        Assertions.assertEquals(tareaResult.getNombre(),tareaModif.getNombre());
+        // se ha actualizado el campo
+        Assertions.assertEquals(90, tareaResult.getEstado());
 
     }
 
@@ -152,14 +170,16 @@ public class ServiciosTests {
 
         TareaModelo tareaResult = servicio.crearTarea( miTarea );
 
-        // TODO: la tarea existe
+        // la tarea existe
+        Assertions.assertNotNull(tareaResult);
 
         Integer id = tareaResult.getId();
 
         servicio.borrarTarea( id );
 
         Optional<Tarea> result = tareasRepo.findById( id );
-        // TODO: comprobar que se ha borrado
+        // comprobar que se ha borrado
+        Assertions.assertFalse(result.isPresent());
 
     }
 
@@ -178,7 +198,9 @@ public class ServiciosTests {
 
         var violationes = validator.validate(miTarea);
 
-        // TODO: comprobar que el correo es invalido
+        // comprobar que el correo es invalido
+        Assertions.assertFalse(violationes.isEmpty());
+
 
     }
 

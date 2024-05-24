@@ -4,6 +4,8 @@ import es.jcyl.formacion.backendapi.persistencia.entidades.Tarea;
 import es.jcyl.formacion.backendapi.persistencia.entidades.Usuario;
 import es.jcyl.formacion.backendapi.persistencia.repositorios.TareasRepositorio;
 import es.jcyl.formacion.backendapi.persistencia.repositorios.UsuariosRepositorio;
+import org.assertj.core.api.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -17,10 +19,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @ActiveProfiles("test")
 public class RepositoriosTests {
-    // TODO: inyectar
+    // inyectar
+    @Autowired
     private TareasRepositorio tareasRepo;
 
-    // TODO: inyectar
+    //  inyectar
+    @Autowired
     private UsuariosRepositorio usuariosRepo;
 
 
@@ -50,7 +54,9 @@ public class RepositoriosTests {
         List<Tarea> lista = tareasRepo.findByUsuario(usuario);
 
         // entonces
-        // TODO: comprobar que la lista existe y que tiene al menos 1 elemento
+        // comprobar que la lista existe y que tiene al menos 1 elemento
+        Assertions.assertFalse(lista.isEmpty());
+        Assertions.assertTrue(lista.size() >= 1);
 
     }
 
@@ -68,9 +74,12 @@ public class RepositoriosTests {
         // when
         Usuario recuperado = usuariosRepo.findByCorreo("rnavas@fmail.com").orElse(null);
 
-        // TODO: comprobar que se ha recuperado un usuario
+        // comprobar que se ha recuperado un usuario
+        Assertions.assertNotNull(recuperado);
 
-        // TODO: comprobar que es el mismo que se insertó originalmente
+        // comprobar que es el mismo que se insertó originalmente
+        Assertions.assertEquals(usuario.getNombreCompleto(),recuperado.getNombreCompleto());
+        Assertions.assertEquals(usuario.getIniciales(),recuperado.getIniciales());
 
     }
 }

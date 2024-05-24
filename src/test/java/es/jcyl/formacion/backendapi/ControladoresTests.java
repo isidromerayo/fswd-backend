@@ -24,10 +24,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class ControladoresTests {
 
-    // TODO: inyectar
+    //inyectar
+    @Autowired
     private UsuariosRepositorio usuariosRepo;
 
-    // TODO: inyectar
+    // inyectar
+    @Autowired
     private MockMvc mockMvc;
 
     private Usuario usuarioTest;
@@ -62,8 +64,11 @@ public class ControladoresTests {
                         .content(requestBody)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                // TODO: comprobar que el nombre devuelto es Demo
-                // TODO: comprobar que se ha asignado un id
+                // comprobar que el nombre devuelto es Demo
+                .andExpect(MockMvcResultMatchers.jsonPath("$.nombre").value("Demo"))
+                // comprobar que se ha asignado un id
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2))
+                ;
     }
 
 
@@ -77,8 +82,12 @@ public class ControladoresTests {
                         .param("correo", correo)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                // TODO: comprobar que devuelve un array
-                // TODO: comprobar que se ha devuelto un dato en el primero registro
+                // comprobar que devuelve un array
+                .andExpect(MockMvcResultMatchers.jsonPath("$").isArray())
+                // comprobar que se ha devuelto un dato en el primero registro
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value("1"))
+                ;
+
     }
 
 
